@@ -1,0 +1,296 @@
+---
+title: "Florida Water Level"
+author: "Blake Tindol"
+date: "7/18/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+setwd("C:/Users/btindol/OneDrive - Stryker/R Scripts/Sea Level Raise")
+#knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE,echo = TRUE) 
+
+library("rnoaa")
+library("lubridate")
+library("dplyr")
+library("leaflet")
+library("ggplot2")
+library("knitr")
+library("tidyr")
+```
+
+## Sea Level Raise Analysis
+
+The purpose of this analysis was to look at the rate of sea level raise in florida. I wanted to see if it is worth it to buy a home in florida, or if flooding will destroy the property in my life time and if so when. 
+
+This analysis was done using weather station data from different stations spread across Florida evenly using the RNOAA API in R. To copy this analysis you will have to get your own personal API key for NOAA at # API Key http://www.ncdc.noaa.gov/cdo-web/token. 
+
+To get the florida station codes go to my github at My github. <http://rmarkdown.rstudio.com>.
+
+```{r florida stations}
+
+# API Key @  http://www.ncdc.noaa.gov/cdo-web/token 
+options(noaakey = "Your API Key Here")
+
+# small list of stations evenly spaced around states boarder on all sides
+# we want the station id for RNOAA API calls 
+florida_stations <- read.csv("florida_stations.csv");colnames(florida_stations)[1] <- "ID"
+
+# Bring in leaflet points for plot
+mappoints <- read.csv("mappoints.csv")
+
+# pick one station for API Testing in florida
+station1 <- florida_stations$ID[1]
+
+# read in water level data for all of the different stations 
+temp <- read.csv("florida_water_levels_in_feet_final.csv");temp <- temp[-c(1)]
+
+kable(florida_stations)
+```
+
+## Locations of the weather stations that feed the NOAA API.we are going to pickevenly spaced stations around state 
+```{r leaflet}
+leaflet(data = mappoints) %>%
+  addTiles() %>%
+  addCircles(lng = mappoints$lonz,
+             lat = mappoints$latz,
+             popup = mappoints$stationname) %>%
+  clearBounds()
+
+```
+
+## Example API call from the API
+The api call works by inputting the station name (station id) and a beginning date and ending in yyyymmdd format in numeric form.<br>
+The api call releases the data in 5 minute increments and for only 30 day time windows.
+```{r exampleapi}
+# get water level
+station1_pull <-coops_search(station_name = station1, begin_date = 20140927,
+             end_date = 20140928, product = "water_level", datum = "stnd")
+# Make dataframe
+station1_pull <- data.frame(station1_pull);colnames(station1_pull)<- c("ID","Station Name", "lat","lon","date time","water level (ft)","standard dev","other data","other data2")
+
+kable(head(station1_pull[c(1:7)]))
+```
+
+## Now we need to get two vectors to programatically enter the date range for API calls
+```{r date vectors}
+# Get a time range for the next 130 months from 2010/01/01
+datevar <- seq(as.Date("2010/01/01"), by = "month", length.out = 130)
+
+# Get a time range for the next 130 months from 2010/02/01
+datevar2 <- seq(as.Date("2010/02/01"), by = "month", length.out = 130)
+
+# clean up columns for API Call format
+datedf <- data.frame(start=datevar,end=datevar2)
+datedf$start <- gsub("-","",datedf$start)
+datedf$end <- gsub("-","",datedf$end)
+datedf$start <- as.numeric(datedf$start)
+datedf$end <- as.numeric(datedf$end)
+kable(head(datedf))
+```
+
+## Now we will programmatically get all of the stations data from 2010 to 2020 <br>
+Steps:<br>
+1) Outer loop goes through all stations<br>
+2) Inner loop goes through each row in datedf dataframe which has start and end date<br>
+3) API call <br>
+4) Aggregate the data by mean daily value for water level and bind to empty dataframe<br>
+I left this out because it takes to long to do again if you want to fully emulate the analyss go to R file in github 
+```{r api loop}
+
+# temp <-NULL
+# for(j in 1:nrow(florida_stations)){
+#   for(i in 1:nrow(datedf)){
+#     #print(datedf$start[i])
+#     tempdate <- NULL
+#     startz <- NULL
+#     endz <- NULL
+#     tryCatch({
+#       stationz <- florida_stations$ï..ID[j]
+#       startZ <-datedf$start[i]
+#       endZ <-datedf$end[i]
+#       
+#       tempdate <- coops_search(station_name = stationz, begin_date = startZ,end_date = endZ, product = "water_level", datum = "stnd",time_zone = "lst")
+#       tempdate2 <- data.frame(tempdate[['data']]) # make list dataframe
+#       tempdate2$stationname <- tempdate$metadata$name # make name the column 
+#       tempdate2$lat <- tempdate$metadata$lat
+#       tempdate2$lon <- tempdate$metadata$lon
+#       tempdate2$day <- day(tempdate2$t)
+#       tempdate2$year <- year(tempdate2$t)
+#       tempdate2$month <- month(tempdate2$t)
+#       
+#       # group by year month and day and get the average water level for that day before appending
+#       tempdate3 <- tempdate2 %>%
+#         group_by(year,month,day)%>%
+#         summarise(water_level = mean(v,na.rm = TRUE),stationname=unique(stationname),lat=unique(lat),lon=unique(lon))
+#       
+#       temp <- rbind(temp,tempdate3)
+#     }, error=function(e){cat("ERROR :",conditionMessage(e), "\n")})
+#     print(i)
+#   }
+# }
+#temp$date <- paste(temp$year,temp$month,temp$day,sep="-"); temp$date <- as.Date(temp$date)
+
+
+#write.csv(temp,file="florida_water_levels_in_feet.csv")
+```
+
+
+## Perform some summary statistics on the different stations (All Years) <br>
+- Min, max, standard deviation and mean water levels in feet.
+``` {r summary stats}
+temp_sum2 <- temp %>%
+  group_by(stationname) %>%
+  summarise(max_level = round(max(water_level,na.rm=TRUE),digits=3),min_level = round(min(water_level,na.rm=TRUE),digits = 3),std_level = round(sd(water_level,na.rm=TRUE),digits=3),mean_level = round(mean(water_level,na.rm=TRUE),digits=3))
+
+kable(temp_sum2)
+
+```
+
+## Perform some summary statistics on the different stations by year <br>
+- Here we get the CAGR (annual growth rate) for the station in St. Petersburg, Tampa Bay. <br>
+ - CAGR is in inches so here its about .6% of an inch less than 1%
+``` {r summary stats year}
+temp_sum_year2 <- temp %>%
+  group_by(stationname,year) %>%
+  summarise(max_level = round(max(water_level,na.rm=TRUE),digits=3),min_level = round(min(water_level,na.rm=TRUE),digits = 3),std_level = round(sd(water_level,na.rm=TRUE),digits=3),mean_level = round(mean(water_level,na.rm=TRUE),digits=3)) %>%
+  mutate(firstz = dplyr::first(mean_level),lastz = dplyr::last(mean_level),nrows = n(),cagr_level= round(((lastz/firstz)^(1/nrows)-1),digits=4))
+
+kable(temp_sum_year2[temp_sum_year2$stationname == "St. Petersburg, Tampa Bay",c(2:10)])
+```
+
+## Lets the time series for each station by year <br>
+- As we can see water levels spike during fall every year and has varied from year to year slightly by a few inches. <br>
+- Overall pretty steady with slight uptrend it looks like. 
+``` {r vizualiz}
+ggplot(temp,aes(x=year,y=water_level,colour=stationname,group=stationname)) + geom_line()
+
+
+```
+
+
+## I did this analysis to see if the ocean raises at an exponential rate what year and at what level would the water level be at for different years.
+- I will start at 2010 and go for the next 100 years. We will only look at Naples for example.<br>
+- I did collect data for all stations as well. 
+``` {r water level f}
+ 
+
+uniquestation <- unique(temp$stationname)
+
+external_station <- NULL 
+for(i in 1:length(uniquestation)) {
+  tempzt <- NULL
+  temp_sum2 <- NULL
+  temp_sum_year2 <- NULL
+  
+  tempzt <- temp[temp$stationname == uniquestation[i],];#tempzt <- data.frame(tempzt)
+  
+  # get summary stats
+  temp_sum2 <- tempzt %>%
+    group_by(stationname,year) %>%
+    summarise(max_level = round(max(water_level,na.rm=TRUE),digits=3),min_level = round(min(water_level,na.rm=TRUE),digits = 3),std_level = round(sd(water_level,na.rm=TRUE),digits=3),mean_level = round(mean(water_level,na.rm=TRUE),digits=3),.groups = 'drop')
+  
+  # get cagr for rate.. 
+  temp_sum_year2 <- tempzt %>%
+    group_by(stationname,year) %>%
+    summarise(max_level = round(max(water_level,na.rm=TRUE),digits=3),min_level = round(min(water_level,na.rm=TRUE),digits = 3),std_level = round(sd(water_level,na.rm=TRUE),digits=3),mean_level = round(mean(water_level,na.rm=TRUE),digits=3),.groups = 'drop') %>%
+    mutate(firstz = dplyr::first(mean_level),lastz = dplyr::last(mean_level),nrows = n(),cagr_level= round(((lastz/firstz)^(1/nrows)-1),digits=4))
+  
+  
+  # make empty vectors for the years that we will project out to 
+  years <- seq(from=0, to=100, by=1) # we will make an empty vector of 0's for 100 years so 2121
+  nyears <- 100
+  N <- numeric(nyears+1) # empty vector of 100 0's
+  
+  # make initial value (aka last years mean value ) ( last years mean value of water level for the station)
+  N0 <- last(temp_sum2$mean_level)
+  
+  # rate of growth by year
+  r <- unique(temp_sum_year2$cagr_level)
+  
+  # lambda is 1+r
+  lambda <- 1+r
+  
+  # Run the simulation!! of exponentioal growth in the next 100years
+  N[1] <- N0                
+  lambda <- 1 + r          
+  for (i in 2:(nyears+1)){  
+    N[i] <- lambda*N[i-1]  
+  
+  }                        
+  
+  # put date column for graph
+  datez <- seq(as.Date("2010/01/01"), by = "year", length.out = 101)
+  datedfz <- data.frame(date = datez, water_level=N)
+  datedfz$multiplyer <- unique(temp_sum_year2$cagr_level) #.0083
+  datedfz$cumsum <- cumsum(datedfz$multiplyer)
+  datedfz$water_level_doubled_rate<- datedfz$water_level + datedfz$cumsum       # This is a vector of the water level in feet for the next 100 years at an exponential rate
+  datedfz$station <- unique(temp_sum2$stationname)
+  
+  external_station <- rbind(external_station,datedfz)
+  
+}
+
+kable(head(external_station[c(1,2,6)],n=100))
+```
+ 
+## Now lets look at only specific years for each station and see the difference from first year 2010
+``` {r feet increase}
+wl_2010 = external_station[external_station$date =="2010-01-01",c(1,2,6)];colnames(wl_2010)[2] <- "water_level_2010"
+wl_2030 = external_station[external_station$date =="2030-01-01",c(1,2,6)];colnames(wl_2030)[2] <- "water_level_2030"
+wl_2050 = external_station[external_station$date =="2050-01-01",c(1,2,6)];colnames(wl_2050)[2] <- "water_level_2050"
+wl_2075 = external_station[external_station$date =="2075-01-01",c(1,2,6)];colnames(wl_2075)[2] <- "water_level_2075"
+wl_2110 =external_station[external_station$date =="2110-01-01",c(1,2,6)];colnames(wl_2110)[2] <- "water_level_2110"
+
+# join all of the years 
+merge1 <- merge(wl_2010,wl_2030,by=c("station"),all.x=TRUE)
+merge2 <- merge(merge1,wl_2050,by=c("station"),all.x=TRUE)
+merge3 <- merge(merge2,wl_2075,by=c("station"),all.x=TRUE)
+merge4 <- merge(merge3,wl_2110,by=c("station"),all.x=TRUE)
+merge_final <- merge4[c(1,3,5,7,9,11)];
+merge_final$feet_increase_30_years <- merge_final$water_level_2030-merge_final$water_level_2010
+merge_final$feet_increase_50_years <- merge_final$water_level_2050-merge_final$water_level_2010
+merge_final$feet_increase_70_years <- merge_final$water_level_2075-merge_final$water_level_2010
+merge_final$feet_increase_100_years <- merge_final$water_level_2110-merge_final$water_level_2010
+
+kable(merge_final[,c(1,7,8,9,10)])
+ 
+```
+ 
+## Stacked Bar Chart
+```{r stacked bar, fig.width = 8, fig.height = 8}
+long_DF <- merge_final %>% gather(water_level_class, water_level_feet, feet_increase_30_years:feet_increase_100_years)
+
+
+p<-ggplot(data=long_DF, aes(x=station, y=water_level_feet,fill=factor(water_level_class, levels=c("feet_increase_100_years","feet_increase_70_years","feet_increase_50_years","feet_increase_30_years")))) +
+  geom_bar(stat="identity")+ theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+ labs(title= "Station Water-level Difference from 2010 in feet",y="Water Level", x = "Station")+ guides(fill=guide_legend(title="Years since 2010"))
+
+
+p
+
+```
+
+## Clustered Bar Chart
+``` {r clustered , fig.width = 8, fig.height = 8}
+d <- ggplot(long_DF, aes(fill=water_level_class, y=water_level_feet, x=station)) + 
+  geom_bar(position="dodge", stat="identity")+ theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+ labs(title= "Station Water-level Difference from 2010 in feet",y="Water Level", x = "Station")+ guides(fill=guide_legend(title="Years since 2010"))
+
+
+d
+
+```
+
+## In 100 years the maximum water level increase for a station is 2.5 ft.
+- Lets see what that looks like at NOAA'S sea level simulator at <br>     https://coast.noaa.gov/slr/#/layer/slr/2/-9220234.345848428/3243916.8651185175/7/satellite/none/0.8/2050/interHigh/midAccretion 
+![Caption for the picture.](C:/Users/btindol/OneDrive - Stryker/R Scripts/Sea Level Raise/two_feet_fl.jpg)
+
+## I really like St. Petersburg FL lets see 1 foot here. 
+- It looks like st peters will reach about 1 foot in 70 years at exponential rate. 
+![Caption for the picture.](C:/Users/btindol/OneDrive - Stryker/R Scripts/Sea Level Raise/st_peters_1_foot.jpg)
+
+## No real impact it looks like now lets see two feet.
+- It looks like st peters will reach about 1 foot in 100 + years at exponential rate. 
+![Caption for the picture.](C:/Users/btindol/OneDrive - Stryker/R Scripts/Sea Level Raise/st_peters_2_foot.jpg)
+
+## Summary
+- In analysis to decide if i should move to florida or not based on how fast the sea level increases, i choose to move down. This is a simple API EDA and is not perfect but can be a guide when trying to explore climate information. 
