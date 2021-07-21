@@ -83,5 +83,10 @@ kable(head(station1_pull[c(1:7)]))<br>
 datedf$start <- as.numeric(datedf$start);datedf$end <- as.numeric(datedf$end)<br> 
 
 kable(head(datedf))<br> 
+
+
+![Caption for the picture5.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/start_end_dates.JPG)
 ########################################################################################
 ########################################################################################
+
+
