@@ -99,3 +99,18 @@ I left this out because it takes to long to do again if you want to fully emulat
 
 * Step 12: Make loop to loop through all station ID's for each date range <br> 
 ![Caption for the picture6.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/loop.JPG)
+
+########################################################################################
+########################################################################################
+<h3> Perform some summary statistics on the different stations (All Years)</h3> <br> 
+
+* Step 13: Min, max, standard deviation and mean water levels in feet.<br> 
+-- temp_sum2 <- temp %>%
+  group_by(stationname) %>%
+  summarise(max_level = round(max(water_level,na.rm=TRUE),digits=3),min_level = round(min(water_level,na.rm=TRUE),digits = 3),std_level = round(sd(water_level,na.rm=TRUE),digits=3),mean_level = round(mean(water_level,na.rm=TRUE),digits=3))
+
+
+
+########################################################################################
+########################################################################################
+kable(temp_sum2)
