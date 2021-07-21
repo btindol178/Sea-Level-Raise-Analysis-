@@ -118,13 +118,13 @@ temp <-NULL                                   -- Initialize temp variable to bin
     ---tempdate2$year <- year(tempdate2$t)              -- make year column for aggregating minute api values<br> 
     ---tempdate2$month <- month(tempdate2$t)            -- make month column for aggregating minute api values<br> 
     ---tempdate3 <- tempdate2 %>%                       -- dplyr to make new dataframe off old one<br> 
-         group_by(year,month,day)%>%                    -- group by year month and day because it is currently in minute format<br> 
-         summarise(water_level = mean(v,na.rm = TRUE),stationname=unique(stationname),lat=unique(lat),lon=unique(lon)) -- get mean waterlevel, station , lon and lat<br> 
+    ------group_by(year,month,day)%>%                    -- group by year month and day because it is currently in minute format<br> 
+    ------summarise(water_level = mean(v,na.rm = TRUE),stationname=unique(stationname),lat=unique(lat),lon=unique(lon)) -- get mean waterlevel, station , lon and lat<br> 
     ---temp <- rbind(temp,tempdate3)                    -- bind dataframe to external null value<br> 
-     }, error=function(e){cat("ERROR :",conditionMessage(e), "\n")}) -- if error print message<br> 
-     print(i)                                           -- print iteration<br> 
-   }<br> 
- }<br> 
+    ------}, error=function(e){cat("ERROR :",conditionMessage(e), "\n")}) -- if error print message<br> 
+------print(i)                                           -- print iteration<br> 
+---}<br> 
+--}<br> 
 temp$date <- paste(temp$year,temp$month,temp$day,sep="-"); temp$date <- as.Date(temp$date) -- make year month day column to date temp is final dataframe <br> 
 
 
