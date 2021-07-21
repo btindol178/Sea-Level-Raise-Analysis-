@@ -31,8 +31,10 @@ temp <- read.csv("florida_water_levels_in_feet_final.csv");temp <- temp[-c(1)] <
 kable(florida_stations) <br> 
 ###########################################################################################################
 ###########################################################################################################
-
-
+<h5> Visualizing what the station ID's look like  </h5>
+![Caption for the picture.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/station_ids.JPG)
+###########################################################################################################
+###########################################################################################################
 
 
 ![Caption for the picture.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/st_peters_1_foot.JPG)
