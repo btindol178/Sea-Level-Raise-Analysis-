@@ -31,9 +31,7 @@ Lines signitured with -- after * is the code to be executed in an r- markdown ch
 -- temp <- read.csv("florida_water_levels_in_feet_final.csv");temp <- temp[-c(1)] <br>
 
 kable(florida_stations) <br> 
-########################################################################################
-########################################################################################
-<h3> Visualizing what the station ID's look like  </h3>
+
 
 ![Caption for the picture2.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/station_ids.JPG)
 
@@ -68,6 +66,7 @@ The api call releases the data in 5 minute increments and for only 30 day time w
 station1_pull <- data.frame(station1_pull);colnames(station1_pull)<- c("ID","Station Name", "lat","lon","date time","water level (ft)","standard dev","other data","other data2")
 
 kable(head(station1_pull[c(1:7)]))
+
+
 ########################################################################################
 ########################################################################################
-<h3> Visualize API output in dataframe format from above </h3>
