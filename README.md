@@ -72,14 +72,15 @@ kable(head(station1_pull[c(1:7)]))
 ########################################################################################
 <h3> Now we need to get two vectors to programatically enter the date range for API calls</h3>
 
-* Step 9: Get a time range for the next 130 months from 2010/01/01
--- datevar <- seq(as.Date("2010/01/01"), by = "month", length.out = 130)
+* Step 9: Get a time range for the next 130 months from 2010/01/01 <br> 
+-- datevar <- seq(as.Date("2010/01/01"), by = "month", length.out = 130) <br> 
 
-* Step 10: Get a time range for the next 130 months from 2010/02/01
--- datevar2 <- seq(as.Date("2010/02/01"), by = "month", length.out = 130)
+* Step 10: Get a time range for the next 130 months from 2010/02/01 <br> 
+-- datevar2 <- seq(as.Date("2010/02/01"), by = "month", length.out = 130)<br> 
 
-* Step 11: St clean up columns for API Call format
--- datedf <- data.frame(start=datevar,end=datevar2);datedf$start <- gsub("-","",datedf$start);datedf$end <- gsub("-","",datedf$end);datedf$start <- as.numeric(datedf$start);datedf$end <- as.numeric(datedf$end)
+* Step 11: St clean up columns for API Call format <br> 
+-- datedf <- data.frame(start=datevar,end=datevar2);datedf$start <- gsub("-","",datedf$start);datedf$end <- gsub("-","",datedf$end);<br>
+datedf$start <- as.numeric(datedf$start);datedf$end <- as.numeric(datedf$end)<br> 
 
 kable(head(datedf))
 ########################################################################################
