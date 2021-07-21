@@ -9,9 +9,9 @@ To copy this analysis you will have to get your own personal API key for NOAA at
 
 *To get the florida station codes go to my github at My github https://github.com/btindol178/Sea-Level-Raise-Analysis- .
 
-###########################################################################################################
-###########################################################################################################
-<h5> First Rmarkdown Chunk </h5>
+########################################################################################
+########################################################################################
+<h3> First Rmarkdown Chunk </h3>
 
 * Step 1: API Key @  http://www.ncdc.noaa.gov/cdo-web/token <br>
 options(noaakey = "Your API Key Here") <br> 
@@ -29,16 +29,22 @@ station1 <- florida_stations$ID[1] <br>
 temp <- read.csv("florida_water_levels_in_feet_final.csv");temp <- temp[-c(1)] <br>
 
 kable(florida_stations) <br> 
-###########################################################################################################
-###########################################################################################################
-<h5> Visualizing what the station ID's look like  </h5>
+########################################################################################
+########################################################################################
+<h3> Visualizing what the station ID's look like  </h3>
 
 ![Caption for the picture2.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/station_ids.JPG)
 
-###########################################################################################################
-###########################################################################################################
+########################################################################################
+########################################################################################
+<h3> Locations of the weather stations that feed the NOAA API.we are going to pickevenly spaced stations around state </h3>
 
+* Step 6: Visualize where the stations are located <br>
 
-![Caption for the picture.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/st_peters_1_foot.JPG)
-
+leaflet(data = mappoints) %>%
+  addTiles() %>%
+  addCircles(lng = mappoints$lonz,
+             lat = mappoints$latz,
+             popup = mappoints$stationname) %>%
+  clearBounds()
 
