@@ -62,7 +62,7 @@ The api call releases the data in 5 minute increments and for only 30 day time w
  -- station1_pull <-coops_search(station_name = station1, begin_date = 20140927,
              end_date = 20140928, product = "water_level", datum = "stnd")
              
-* Make dataframe and change column names <br> 
+* Step 8: Make dataframe and change column names <br> 
 station1_pull <- data.frame(station1_pull);colnames(station1_pull)<- c("ID","Station Name", "lat","lon","date time","water level (ft)","standard dev","other data","other data2")
 
 kable(head(station1_pull[c(1:7)]))
