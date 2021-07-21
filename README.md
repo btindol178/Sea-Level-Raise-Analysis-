@@ -65,7 +65,7 @@ The api call releases the data in 5 minute increments and for only 30 day time w
 * Step 8: Make dataframe and change column names <br> 
 station1_pull <- data.frame(station1_pull);colnames(station1_pull)<- c("ID","Station Name", "lat","lon","date time","water level (ft)","standard dev","other data","other data2")
 
-kable(head(station1_pull[c(1:7)]))
+kable(head(station1_pull[c(1:7)]))<br> 
 
 ![Caption for the picture4.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/api_dataframe_call.JPG)
 ########################################################################################
@@ -82,6 +82,6 @@ kable(head(station1_pull[c(1:7)]))
 -- datedf <- data.frame(start=datevar,end=datevar2);datedf$start <- gsub("-","",datedf$start);datedf$end <- gsub("-","",datedf$end);<br>
 datedf$start <- as.numeric(datedf$start);datedf$end <- as.numeric(datedf$end)<br> 
 
-kable(head(datedf))
+kable(head(datedf))<br> 
 ########################################################################################
 ########################################################################################
