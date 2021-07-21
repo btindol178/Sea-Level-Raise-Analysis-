@@ -49,4 +49,5 @@ kable(florida_stations) <br>
              lat = mappoints$latz,
              popup = mappoints$stationname) %>%
   clearBounds()
-
+  
+![Caption for the picture3.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/leaflet_station_location.JPG)
