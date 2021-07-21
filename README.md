@@ -51,3 +51,23 @@ kable(florida_stations) <br>
   clearBounds()
   
 ![Caption for the picture3.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/leaflet_station_location.JPG)
+
+########################################################################################
+########################################################################################
+<h3> Example API call from the API </h3>
+
+The api call works by inputting the station name (station id) and a beginning date and ending in yyyymmdd format in numeric form.<br>
+The api call releases the data in 5 minute increments and for only 30 day time windows.<br>
+
+
+* Step 7: Get water level with api call <br>
+ -- station1_pull <-coops_search(station_name = station1, begin_date = 20140927,
+             end_date = 20140928, product = "water_level", datum = "stnd")
+             
+* Make dataframe and change column names <br> 
+station1_pull <- data.frame(station1_pull);colnames(station1_pull)<- c("ID","Station Name", "lat","lon","date time","water level (ft)","standard dev","other data","other data2")
+
+kable(head(station1_pull[c(1:7)]))
+########################################################################################
+########################################################################################
+<h3> Visualize API output in dataframe format from above </h3>
