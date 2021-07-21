@@ -8,3 +8,5 @@ I wanted to see if it is worth it to buy a home in florida, or if flooding will 
 To copy this analysis you will have to get your own personal API key for NOAA at API Key http://www.ncdc.noaa.gov/cdo-web/token. 
 
 *To get the florida station codes go to my github at My github https://github.com/btindol178/Sea-Level-Raise-Analysis- .
+
+![Caption for the picture.](C:/Users/btindol/OneDrive - Stryker/R Scripts/Sea Level Raise/two_feet_fl.jpg)
