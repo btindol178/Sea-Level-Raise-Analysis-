@@ -88,5 +88,46 @@ kable(head(datedf))<br>
 ![Caption for the picture5.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/start_end_dates.JPG)
 ########################################################################################
 ########################################################################################
+<h3> Now we will programmatically get all of the stations data from 2010 to 2020 </h3>
+
+Steps:<br> 
+1) Outer loop goes through all stations<br> 
+2) Inner loop goes through each row in datedf dataframe which has start and end date<br> 
+3) API call <br> 
+4) Aggregate the data by mean daily value for water level and bind to empty dataframe<br> 
+I left this out because it takes to long to do again if you want to fully emulate the analyss go to R file in github<br> 
+
+* Step 12: Make loop to loop through all station ID's for each date range
+
+temp <-NULL                                   -- Initialize temp variable to bind to externally from loop
+ for(j in 1:nrow(florida_stations)){          -- for each florida station
+   for(i in 1:nrow(datedf)){                  -- for each date range
+     tempdate <- NULL                         -- initialize temp variable
+     startz <- NULL                           -- initialize temp variable
+     endz <- NULL                             -- initialize temp variable
+     tryCatch({                               -- in case there is no data on that station for that year
+       stationz <- florida_stations$ï..ID[j]  -- grab the station id
+       startZ <-datedf$start[i]               -- grab start date from vector we created 
+       endZ <-datedf$end[i]                   -- grab end date from vector we created 
+       
+       tempdate <- coops_search(station_name = stationz, begin_date = startZ,end_date = endZ, product = "water_level", datum = "stnd",time_zone = "lst")  -- API Call 
+       tempdate2 <- data.frame(tempdate[['data']])      -- make list dataframe
+       tempdate2$stationname <- tempdate$metadata$name  -- make name the column 
+       tempdate2$lat <- tempdate$metadata$lat           -- get get latitude
+       tempdate2$lon <- tempdate$metadata$lon           -- get longitude
+       tempdate2$day <- day(tempdate2$t)                -- make day column for aggregating minute api values  
+       tempdate2$year <- year(tempdate2$t)              -- make year column for aggregating minute api values
+       tempdate2$month <- month(tempdate2$t)            -- make month column for aggregating minute api values
+       
+       tempdate3 <- tempdate2 %>%                       -- dplyr to make new dataframe off old one
+         group_by(year,month,day)%>%                    -- group by year month and day because it is currently in minute format
+         summarise(water_level = mean(v,na.rm = TRUE),stationname=unique(stationname),lat=unique(lat),lon=unique(lon)) -- get mean waterlevel, station , lon and lat
+       
+       temp <- rbind(temp,tempdate3)                    -- bind dataframe to external null value
+     }, error=function(e){cat("ERROR :",conditionMessage(e), "\n")}) -- if error print message
+     print(i)                                           -- print iteration
+   }
+ }
+temp$date <- paste(temp$year,temp$month,temp$day,sep="-"); temp$date <- as.Date(temp$date) -- make year month day column to date temp is final dataframe 
 
 
