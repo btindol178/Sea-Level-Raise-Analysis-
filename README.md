@@ -101,26 +101,26 @@ I left this out because it takes to long to do again if you want to fully emulat
 
 temp <-NULL                                   -- Initialize temp variable to bind to externally from loop<br> 
  for(j in 1:nrow(florida_stations)){          -- for each florida station<br> 
-   for(i in 1:nrow(datedf)){                  -- for each date range<br> 
-     tempdate <- NULL                         -- initialize temp variable<br> 
-     startz <- NULL                           -- initialize temp variable<br> 
-     endz <- NULL                             -- initialize temp variable<br> 
-     tryCatch({                               -- in case there is no data on that station for that year<br> 
-       stationz <- florida_stations$ï..ID[j]  -- grab the station id<br> 
-       startZ <-datedf$start[i]               -- grab start date from vector we created <br> 
-       endZ <-datedf$end[i]                   -- grab end date from vector we created <br> 
-       tempdate <- coops_search(station_name = stationz, begin_date = startZ,end_date = endZ, product = "water_level", datum = "stnd",time_zone = "lst")  -- API Call <br> 
-       tempdate2 <- data.frame(tempdate[['data']])      -- make list dataframe<br> 
-       tempdate2$stationname <- tempdate$metadata$name  -- make name the column <br> 
-       tempdate2$lat <- tempdate$metadata$lat           -- get get latitude<br> 
-       tempdate2$lon <- tempdate$metadata$lon           -- get longitude<br> 
-       tempdate2$day <- day(tempdate2$t)                -- make day column for aggregating minute api values  <br> 
-       tempdate2$year <- year(tempdate2$t)              -- make year column for aggregating minute api values<br> 
-       tempdate2$month <- month(tempdate2$t)            -- make month column for aggregating minute api values<br> 
-       tempdate3 <- tempdate2 %>%                       -- dplyr to make new dataframe off old one<br> 
+  --for(i in 1:nrow(datedf)){                  -- for each date range<br> 
+  ---tempdate <- NULL                         -- initialize temp variable<br> 
+  ---startz <- NULL                           -- initialize temp variable<br> 
+  ---endz <- NULL                             -- initialize temp variable<br> 
+  ---tryCatch({                               -- in case there is no data on that station for that year<br> 
+    ---stationz <- florida_stations$ï..ID[j]  -- grab the station id<br> 
+    ---startZ <-datedf$start[i]               -- grab start date from vector we created <br> 
+    ---endZ <-datedf$end[i]                   -- grab end date from vector we created <br> 
+    ---tempdate <- coops_search(station_name = stationz, begin_date = startZ,end_date = endZ, product = "water_level", datum = "stnd",time_zone = "lst")  -- API Call <br> 
+    ---tempdate2 <- data.frame(tempdate[['data']])      -- make list dataframe<br> 
+    ---tempdate2$stationname <- tempdate$metadata$name  -- make name the column <br> 
+    ---tempdate2$lat <- tempdate$metadata$lat           -- get get latitude<br> 
+    ---tempdate2$lon <- tempdate$metadata$lon           -- get longitude<br> 
+    ---tempdate2$day <- day(tempdate2$t)                -- make day column for aggregating minute api values  <br> 
+    ---tempdate2$year <- year(tempdate2$t)              -- make year column for aggregating minute api values<br> 
+    ---tempdate2$month <- month(tempdate2$t)            -- make month column for aggregating minute api values<br> 
+    ---tempdate3 <- tempdate2 %>%                       -- dplyr to make new dataframe off old one<br> 
          group_by(year,month,day)%>%                    -- group by year month and day because it is currently in minute format<br> 
          summarise(water_level = mean(v,na.rm = TRUE),stationname=unique(stationname),lat=unique(lat),lon=unique(lon)) -- get mean waterlevel, station , lon and lat<br> 
-       temp <- rbind(temp,tempdate3)                    -- bind dataframe to external null value<br> 
+    ---temp <- rbind(temp,tempdate3)                    -- bind dataframe to external null value<br> 
      }, error=function(e){cat("ERROR :",conditionMessage(e), "\n")}) -- if error print message<br> 
      print(i)                                           -- print iteration<br> 
    }<br> 
