@@ -9,4 +9,4 @@ To copy this analysis you will have to get your own personal API key for NOAA at
 
 *To get the florida station codes go to my github at My github https://github.com/btindol178/Sea-Level-Raise-Analysis- .
 
-![Caption for the picture.](/st_peters_1_foot.jpg)
+![Caption for the picture.](https://github.com/btindol178/Sea-Level-Raise-Analysis-/st_peters_1_foot.jpg)
