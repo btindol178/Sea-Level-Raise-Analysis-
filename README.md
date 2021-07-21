@@ -67,6 +67,6 @@ station1_pull <- data.frame(station1_pull);colnames(station1_pull)<- c("ID","Sta
 
 kable(head(station1_pull[c(1:7)]))
 
-
+![Caption for the picture4.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/api_dataframe_call.JPG)
 ########################################################################################
 ########################################################################################
