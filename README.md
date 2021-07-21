@@ -9,27 +9,27 @@ To copy this analysis you will have to get your own personal API key for NOAA at
 
 *To get the florida station codes go to my github at My github https://github.com/btindol178/Sea-Level-Raise-Analysis- .
 
-##############################################################################################################################################################################
-##############################################################################################################################################################################
-* API Key @  http://www.ncdc.noaa.gov/cdo-web/token 
-options(noaakey = "Your API Key Here")
+###################################################################
+###################################################################
+* API Key @  http://www.ncdc.noaa.gov/cdo-web/token <br>
+options(noaakey = "Your API Key Here") <br> 
 
-* small list of stations evenly spaced around states boarder on all sides
-* we want the station id for RNOAA API calls 
-florida_stations <- read.csv("florida_stations.csv");colnames(florida_stations)[1] <- "ID"
+* small list of stations evenly spaced around states boarder on all sides <br>
+* we want the station id for RNOAA API calls  <br>
+florida_stations <- read.csv("florida_stations.csv");colnames(florida_stations)[1] <- "ID" <br>
 
-* Bring in leaflet points for plot
-mappoints <- read.csv("mappoints.csv")
+* Bring in leaflet points for plot <br>
+mappoints <- read.csv("mappoints.csv") <br>
 
-* pick one station for API Testing in florida
-station1 <- florida_stations$ID[1]
+* pick one station for API Testing in florida <br>
+station1 <- florida_stations$ID[1] <br>
 
-* read in water level data for all of the different stations 
-temp <- read.csv("florida_water_levels_in_feet_final.csv");temp <- temp[-c(1)]
+* read in water level data for all of the different stations <br>
+temp <- read.csv("florida_water_levels_in_feet_final.csv");temp <- temp[-c(1)] <br>
 
-kable(florida_stations)
-##############################################################################################################################################################################
-##############################################################################################################################################################################
+kable(florida_stations) <br> 
+###################################################################
+###################################################################
 
 
 
