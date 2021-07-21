@@ -32,7 +32,9 @@ kable(florida_stations) <br>
 ###########################################################################################################
 ###########################################################################################################
 <h5> Visualizing what the station ID's look like  </h5>
-![Caption for the picture.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/station_ids.JPG)
+
+![Caption for the picture2.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/station_ids.JPG)
+
 ###########################################################################################################
 ###########################################################################################################
 
