@@ -11,20 +11,20 @@ To copy this analysis you will have to get your own personal API key for NOAA at
 
 ##############################################################################################################################################################################
 ##############################################################################################################################################################################
-# API Key @  http://www.ncdc.noaa.gov/cdo-web/token 
+* API Key @  http://www.ncdc.noaa.gov/cdo-web/token 
 options(noaakey = "Your API Key Here")
 
-# small list of stations evenly spaced around states boarder on all sides
-# we want the station id for RNOAA API calls 
+* small list of stations evenly spaced around states boarder on all sides
+* we want the station id for RNOAA API calls 
 florida_stations <- read.csv("florida_stations.csv");colnames(florida_stations)[1] <- "ID"
 
-# Bring in leaflet points for plot
+* Bring in leaflet points for plot
 mappoints <- read.csv("mappoints.csv")
 
-# pick one station for API Testing in florida
+* pick one station for API Testing in florida
 station1 <- florida_stations$ID[1]
 
-# read in water level data for all of the different stations 
+* read in water level data for all of the different stations 
 temp <- read.csv("florida_water_levels_in_feet_final.csv");temp <- temp[-c(1)]
 
 kable(florida_stations)
