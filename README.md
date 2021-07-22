@@ -118,7 +118,7 @@ kable(temp_sum2)
 
 Step 14: Here we get the CAGR (annual growth rate) for the station in St. Petersburg, Tampa Bay. CAGR is in inches so here its about .6% of an inch less than 1% <br>
 
-temp_sum_year2 <- temp %>%
+-- temp_sum_year2 <- temp %>%
   group_by(stationname,year) %>%
   summarise(max_level = round(max(water_level,na.rm=TRUE),digits=3),min_level = round(min(water_level,na.rm=TRUE),digits = 3),std_level = round(sd(water_level,na.rm=TRUE),digits=3),mean_level = round(mean(water_level,na.rm=TRUE),digits=3)) %>%
   mutate(firstz = dplyr::first(mean_level),lastz = dplyr::last(mean_level),nrows = n(),cagr_level= round(((lastz/firstz)^(1/nrows)-1),digits=4))<br>
