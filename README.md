@@ -125,7 +125,7 @@ Step 14: Here we get the CAGR (annual growth rate) for the station in St. Peters
 
 kable(temp_sum_year2[temp_sum_year2$stationname == "St. Petersburg, Tampa Bay",c(2:10)])<br>
 
-
+![Caption for the picture8.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/cagr_level1.JPG)
 
 ########################################################################################
 ########################################################################################
