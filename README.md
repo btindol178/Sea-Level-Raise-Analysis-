@@ -155,3 +155,14 @@ kable(temp_sum_year2[temp_sum_year2$stationname == "St. Petersburg, Tampa Bay",c
 
 ![Caption for the picture13.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/fig2z.JPG)
 ![Caption for the picture14.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/fig3z.JPG)
+
+########################################################################################
+########################################################################################
+<h3>Stacked Bar Chart </h3><br>
+
+-- long_DF <- merge_final %>% gather(water_level_class, water_level_feet, feet_increase_30_years:feet_increase_100_years)<br>
+
+-- p<-ggplot(data=long_DF, aes(x=station, y=water_level_feet,fill=factor(water_level_class, levels=c("feet_increase_100_years","feet_increase_70_years","feet_increase_50_years","feet_increase_30_years")))) +
+  geom_bar(stat="identity")+ theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+ labs(title= "Station Water-level Difference from 2010 in feet",y="Water Level", x = "Station")+ guides(fill=guide_legend(title="Years since 2010"))<br>
+
+p
