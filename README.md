@@ -116,7 +116,7 @@ kable(temp_sum2)
 ########################################################################################
 <h3> Perform some summary statistics on the different stations by year </h3> <br>
 
-Step 14: Here we get the CAGR (annual growth rate) for the station in St. Petersburg, Tampa Bay. CAGR is in inches so here its about .6% of an inch less than 1% <br>
+*Step 14: Here we get the CAGR (annual growth rate) for the station in St. Petersburg, Tampa Bay. CAGR is in inches so here its about .6% of an inch less than 1% <br>
 
 -- temp_sum_year2 <- temp %>%
   group_by(stationname,year) %>%
@@ -132,7 +132,7 @@ kable(temp_sum_year2[temp_sum_year2$stationname == "St. Petersburg, Tampa Bay",c
 
 <h3> Station by year </h3>
   
-Step 15: As we can see water levels spike during fall every year and has varied from year to year slightly by a few inches. Overall pretty steady with slight uptrend it looks like.
+*Step 15: As we can see water levels spike during fall every year and has varied from year to year slightly by a few inches. Overall pretty steady with slight uptrend it looks like.<br>
 -- ggplot(temp,aes(x=year,y=water_level,colour=stationname,group=stationname)) + geom_line()
 
 
@@ -141,3 +141,5 @@ Step 15: As we can see water levels spike during fall every year and has varied 
 
 ########################################################################################
 ########################################################################################
+<h3>I did this analysis to see if the ocean raises at an exponential rate what year and at what level would the water level be at for different years.</h3><br>
+*Step 16: I will start at 2010 and go for the next 100 years. We will only look at Naples for example.I did collect data for all stations as well.<br>
