@@ -169,7 +169,10 @@ d <- ggplot(long_DF, aes(fill=water_level_class, y=water_level_feet, x=station))
 d
 
 ![Caption for the picture16.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/cluster%201z.JPG)
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h3>In 100 years the maximum water level increase for a station is 2.5 ft.</h3>
-<h4>Lets see what that looks like at NOAA’S sea level simulator at </h4>
+<h4>Lets see what that looks like at NOAA’S sea level simulator for all of florida at a high level view</h4>
 https://coast.noaa.gov/slr/#/layer/slr/2/-9220234.345848428/3243916.8651185175/7/satellite/none/0.8/2050/interHigh/midAccretion 
+
+![Caption for the picture17.]https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/sealevel_1.JPG)
