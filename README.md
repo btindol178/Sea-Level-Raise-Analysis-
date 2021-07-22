@@ -129,3 +129,8 @@ kable(temp_sum_year2[temp_sum_year2$stationname == "St. Petersburg, Tampa Bay",c
 
 ########################################################################################
 ########################################################################################
+
+<h3> Station by year 
+  
+Step 15: As we can see water levels spike during fall every year and has varied from year to year slightly by a few inches. Overall pretty steady with slight uptrend it looks like.
+-- ggplot(temp,aes(x=year,y=water_level,colour=stationname,group=stationname)) + geom_line()
