@@ -143,3 +143,8 @@ kable(temp_sum_year2[temp_sum_year2$stationname == "St. Petersburg, Tampa Bay",c
 ########################################################################################
 <h3>I did this analysis to see if the ocean raises at an exponential rate what year and at what level would the water level be at for different years.</h3><br>
 *Step 16: I will start at 2010 and go for the next 100 years. We will only look at Naples for example.I did collect data for all stations as well.<br>
+
+
+![Caption for the picture10.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/part1.JPG)
+![Caption for the picture11.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/part2.JPG)
+![Caption for the picture12.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/part3.JPG)
