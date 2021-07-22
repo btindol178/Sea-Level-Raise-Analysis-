@@ -11,8 +11,7 @@ To copy this analysis you will have to get your own personal API key for NOAA at
 
 Lines signitured with * Step #: means this is the descripton <br> 
 Lines signitured with -- after * is the code to be executed in an r- markdown chunk
-########################################################################################
-########################################################################################
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h3> First Rmarkdown Chunk </h3>
 
 * Step 1: API Key @  http://www.ncdc.noaa.gov/cdo-web/token <br>
@@ -35,8 +34,7 @@ kable(florida_stations) <br>
 
 ![Caption for the picture2.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/station_ids.JPG)
 
-########################################################################################
-########################################################################################
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h3> Locations of the weather stations that feed the NOAA API.we are going to pickevenly spaced stations around state </h3>
 
 * Step 6: Visualize where the stations are located <br>
@@ -49,9 +47,7 @@ kable(florida_stations) <br>
   clearBounds()
   
 ![Caption for the picture3.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/leaflet_station_location.JPG)
-
-########################################################################################
-########################################################################################
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h3> Example API call from the API </h3>
 
 The api call works by inputting the station name (station id) and a beginning date and ending in yyyymmdd format in numeric form.<br>
@@ -68,8 +64,7 @@ station1_pull <- data.frame(station1_pull);colnames(station1_pull)<- c("ID","Sta
 kable(head(station1_pull[c(1:7)]))<br> 
 
 ![Caption for the picture4.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/api_dataframe_call.JPG)
-########################################################################################
-########################################################################################
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h3> Now we need to get two vectors to programatically enter the date range for API calls</h3>
 
 * Step 9: Get a time range for the next 130 months from 2010/01/01 <br> 
@@ -86,8 +81,7 @@ kable(head(datedf))<br>
 
 
 ![Caption for the picture5.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/start_end_dates.JPG)
-########################################################################################
-########################################################################################
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h3> Now we will programmatically get all of the stations data from 2010 to 2020 </h3>
 
 Steps:<br> 
@@ -100,8 +94,7 @@ I left this out because it takes to long to do again if you want to fully emulat
 * Step 12: Make loop to loop through all station ID's for each date range <br> 
 ![Caption for the picture6.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/loop.JPG)
 
-########################################################################################
-########################################################################################
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h3> Perform some summary statistics on the different stations (All Years)</h3> <br> 
 
 * Step 13: Min, max, standard deviation and mean water levels in feet.<br> 
@@ -112,8 +105,7 @@ I left this out because it takes to long to do again if you want to fully emulat
 kable(temp_sum2)
 
 ![Caption for the picture7.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/summarystats1.JPG)
-########################################################################################
-########################################################################################
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h3> Perform some summary statistics on the different stations by year </h3> <br>
 
 *Step 14: Here we get the CAGR (annual growth rate) for the station in St. Petersburg, Tampa Bay. CAGR is in inches so here its about .6% of an inch less than 1% <br>
@@ -127,8 +119,7 @@ kable(temp_sum_year2[temp_sum_year2$stationname == "St. Petersburg, Tampa Bay",c
 
 ![Caption for the picture8.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/cagr_level1.JPG)
 
-########################################################################################
-########################################################################################
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 <h3> Station by year </h3>
   
@@ -139,8 +130,7 @@ kable(temp_sum_year2[temp_sum_year2$stationname == "St. Petersburg, Tampa Bay",c
 
 ![Caption for the picture9.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/ggplot2z.JPG)
 
-########################################################################################
-########################################################################################
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h3>I did this analysis to see if the ocean raises at an exponential rate what year and at what level would the water level be at for different years.</h3><br>
 *Step 16: I will start at 2010 and go for the next 100 years. We will only look at Naples for example.I did collect data for all stations as well.<br>
 
@@ -149,15 +139,13 @@ kable(temp_sum_year2[temp_sum_year2$stationname == "St. Petersburg, Tampa Bay",c
 ![Caption for the picture11.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/part2.JPG)
 ![Caption for the picture12.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/part3.JPG)
 
-########################################################################################
-########################################################################################
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h3>Now lets look at only specific years for each station and see the difference from first year 2010</h3>
 
 ![Caption for the picture13.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/fig2z.JPG)
 ![Caption for the picture14.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/fig3z.JPG)
 
-########################################################################################
-########################################################################################
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h3>Stacked Bar Chart </h3><br>
 
 -- long_DF <- merge_final %>% gather(water_level_class, water_level_feet, feet_increase_30_years:feet_increase_100_years)<br>
@@ -171,7 +159,7 @@ p
 ![Caption for the picture15.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/stationbar.JPG)
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 <h3>Clustered Bar Chart</h3><br>
 
