@@ -173,7 +173,7 @@ d
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <h3>In 100 years the maximum water level increase for a station is 2.5 ft.</h3><br>
-<h4>Lets see what that looks like at NOAA’S sea level simulator for all of florida at a high level view</h4><br>
+- Lets see what that looks like at NOAA’S sea level simulator for all of florida at a high level view<br>
 
 *https://coast.noaa.gov/slr/#/layer/slr/2/-9220234.345848428/3243916.8651185175/7/satellite/none/0.8/2050/interHigh/midAccretion <br>
 
@@ -192,3 +192,11 @@ d
 - It looks like st peters will reach about 1 foot in 100 + years at exponential rate.
 
 ![Caption for the picture19.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/st_peters_2_foot.JPG)
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+<h2> Summary</h2>
+- In analysis to decide if i should move to florida or not based on how fast the sea level increases, i choose to move down. This is a simple API EDA and is not perfect but can be a guide when trying to explore climate information. 
+- Considerations: <br>
+--- This was based on CAGR'S of 10 years of data.
+--- This does not take into account natural weather disasters such as hurricanes or earthquakes.
