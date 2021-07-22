@@ -196,7 +196,7 @@ d
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 <h2> Summary</h2>
-- In analysis to decide if i should move to florida or not based on how fast the sea level increases, i choose to move down. This is a simple API EDA and is not perfect but can be a guide when trying to explore climate information. 
+- In analysis to decide if i should move to florida or not based on how fast the sea level increases, i choose to move down. This is a simple API EDA and is not perfect but can be a guide when trying to explore climate information. <br>
 - Considerations: <br>
---- This was based on CAGR'S of 10 years of data.
---- This does not take into account natural weather disasters such as hurricanes or earthquakes.
+--- This was based on CAGR'S of 10 years of data.<br>
+--- This does not take into account natural weather disasters such as hurricanes or earthquakes.<br>
