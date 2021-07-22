@@ -179,3 +179,5 @@ d <- ggplot(long_DF, aes(fill=water_level_class, y=water_level_feet, x=station))
   geom_bar(position="dodge", stat="identity")+ theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+ labs(title= "Station Water-level Difference from 2010 in feet",y="Water Level", x = "Station")+ guides(fill=guide_legend(title="Years since 2010"))<br>
 
 d
+
+![Caption for the picture16.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/cluster%201z.JPG)
