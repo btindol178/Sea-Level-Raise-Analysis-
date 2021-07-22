@@ -152,3 +152,6 @@ kable(temp_sum_year2[temp_sum_year2$stationname == "St. Petersburg, Tampa Bay",c
 ########################################################################################
 ########################################################################################
 <h3>Now lets look at only specific years for each station and see the difference from first year 2010</h3>
+
+![Caption for the picture13.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/fig2z.JPG)
+![Caption for the picture14.](https://raw.githubusercontent.com/btindol178/Sea-Level-Raise-Analysis-/main/fig3z.JPG)
